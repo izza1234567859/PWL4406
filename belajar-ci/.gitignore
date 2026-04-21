@@ -124,3 +124,9 @@ _modules/*
 
 /results/
 /phpunit*.xml
+# Abaikan semua file dan folder di root
+/*
+
+# Beri pengecualian: HANYA folder belajar-ci dan file gitignore yang boleh masuk
+!/belajar-ci/
+!.gitignore
