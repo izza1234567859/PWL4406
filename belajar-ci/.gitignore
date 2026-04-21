@@ -128,5 +128,4 @@ _modules/*
 /*
 
 # Beri pengecualian: HANYA folder belajar-ci dan file gitignore yang boleh masuk
-!/belajar-ci/
 !.gitignore
