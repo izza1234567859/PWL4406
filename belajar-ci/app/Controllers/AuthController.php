@@ -7,42 +7,44 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class AuthController extends BaseController
 {
- function __construct()
-{
-    helper('form');
-}
-public function login()
-{
-    if ($this->request->getPost()) {
-        $username = $this->request->getVar('username');
-        $password = $this->request->getVar('password');
+    function __construct()
+    {
+        helper('form');
+    }
 
-        $dataUser = ['username' => 'april', 'password' => '202cb962ac59075b964b07152d234b70', 'role' => 'admin']; // passw 123
+    public function login()
+    {
+        if ($this->request->getPost()) {
+            $username = $this->request->getVar('username');
+            $password = $this->request->getVar('password');
 
-        if ($username == $dataUser['username']) {
-            if (md5($password) == $dataUser['password']) {
-                session()->set([
-                    'username' => $dataUser['username'],
-                    'role' => $dataUser['role'],
-                    'isLoggedIn' => TRUE
-                ]);
+            $dataUser = ['username' => 'april', 'password' => '202cb962ac59075b964b07152d234b70', 'role' => 'admin']; // passw 123
 
-                return redirect()->to(base_url('/'));
+            if ($username == $dataUser['username']) {
+                if (md5($password) == $dataUser['password']) {
+                    session()->set([
+                        'username' => $dataUser['username'],
+                        'role' => $dataUser['role'],
+                        'isLoggedIn' => TRUE
+                    ]);
+
+                    return redirect()->to(base_url('/'));
+                } else {
+                    session()->setFlashdata('failed', 'Username & Password Salah');
+                    return redirect()->back();
+                }
             } else {
-                session()->setFlashdata('failed', 'Username & Password Salah');
+                session()->setFlashdata('failed', 'Username Tidak Ditemukan');
                 return redirect()->back();
             }
         } else {
-            session()->setFlashdata('failed', 'Username Tidak Ditemukan');
-            return redirect()->back();
-        }
-    } else {
-        return view('v_login');
+            return view('v_login');
     }
 }
-public function logout()
-{
-    session()->destroy();
-    return redirect()->to('login');
-}
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('login');
+    }
 }
