@@ -22,13 +22,16 @@ class AuthController extends BaseController
 
             if ($username == $dataUser['username']) {
                 if (md5($password) == $dataUser['password']) {
-                    session()->set([
-                        'username' => $dataUser['username'],
-                        'role' => $dataUser['role'],
-                        'isLoggedIn' => TRUE
-                    ]);
+                  session()->set([
+              'username'    => $dataUser['username'],
+              'role'        => $dataUser['role'],
+              'email'       => 'april@example.com', 
+              'waktu_login' => date('Y-m-d H:i:s'),  
+              'status_login'=> 'Sudah Login',        
+              'isLoggedIn'  => TRUE
+]);
 
-                    return redirect()->to(base_url('/'));
+                    return redirect()->to(base_url('profile'));
                 } else {
                     session()->setFlashdata('failed', 'Username & Password Salah');
                     return redirect()->back();
